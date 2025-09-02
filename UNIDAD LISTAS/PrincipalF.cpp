@@ -75,7 +75,8 @@ void __fastcall TForm1::Button9Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
-   l->ordenarPorUltimoDigito();
+   l->ordenarPorUltimoDigito();     //solo positivos
+   // l->ordenarPorUltimoDigito2();  //negativos
 }
 //---------------------------------------------------------------------------
 
