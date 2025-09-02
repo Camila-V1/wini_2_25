@@ -106,37 +106,48 @@ return NULO;}
 //-------------------------------------------------
 int Lista::getlongitud(){return longitud;}
 //-------------------------------------------------
-void Lista::insertar(direccion d, int elemento){
-  int x= Cmemoria->new_espacio(datoNL);
-if (x!=NULO ) {
-	Cmemoria->poner_dato(x,elementNL,elemento);
-	Cmemoria->poner_dato(x,sigNL,NULO);
-	if (!vacia()) {
-	   if (d==primero()) {
-		Cmemoria->poner_dato(x,sigNL,d);
-		PtrElementos=x;
-	   }
-	   else
-	   {
-		int ant=anterior(d);
-		Cmemoria->poner_dato(ant,sigNL,x);
-		Cmemoria->poner_dato(x,sigNL,d);
-	   }
+void Lista::insertar(direccion d, int elemento) {
+    // 1. Pedir espacio nuevo en memoria
+    int x = Cmemoria->new_espacio(datoNL);
+    if (x == NULO) {
+        cout << "ERROR: No existe espacio en la memoria.";
+        return; // Salir si no hay memoria
+    }
 
-	   longitud++;
-	}
-	else
-	{
-		PtrElementos=x;
-		longitud=1;
-	}
+    // 2. Colocar el dato en el nuevo nodo
+    Cmemoria->poner_dato(x, elementNL, elemento);
+    Cmemoria->poner_dato(x, sigNL, NULO); // El 'siguiente' por defecto es NULO
 
-}else
-{
-	cout<<"no existe espacio en la memoria o la direccion recibida es invalido";
-}
-}
-//-------------------------------------------------
+    // 3. Manejar el caso de que la lista esté vacía
+    if (vacia()) {
+        PtrElementos = x;
+        longitud = 1;
+        return; // El nodo es el primero y único
+    }
+
+    // ---- INICIO DE LA MODIFICACIÓN ----
+
+    // 4. CASO ESPECIAL: Si la dirección 'd' es la del último elemento (fin)
+    // Se inserta el nuevo nodo DESPUÉS del último
+    if (d == fin()) {
+        Cmemoria->poner_dato(d, sigNL, x); // El 'siguiente' del actual último apunta al nuevo
+        longitud++;
+    }
+    // ---- FIN DE LA MODIFICACIÓN ----
+
+    // 5. CASO ORIGINAL: Si la dirección 'd' es cualquier otra, se inserta ANTES
+    else {
+        if (d == primero()) {
+            Cmemoria->poner_dato(x, sigNL, d); // El 'siguiente' del nuevo apunta al antiguo primero
+            PtrElementos = x; // El puntero principal apunta ahora al nuevo nodo
+        } else {
+            direccion ant = anterior(d);
+            Cmemoria->poner_dato(ant, sigNL, x); // El 'siguiente' del anterior a 'd' apunta al nuevo
+            Cmemoria->poner_dato(x, sigNL, d);   // El 'siguiente' del nuevo apunta a 'd'
+        }
+        longitud++;
+    }
+}//-------------------------------------------------
 void Lista::inserta_primero(int elemento){
 int x = Cmemoria->new_espacio(datoNL);
 if (x!=NULO) {
@@ -342,4 +353,50 @@ void Lista::Pintado2(int posX, int posY, String cad, TColor color, TCanvas *Canv
 
 	Canvas->TextOutW(posX,posY+3,cad);
 
+}
+
+void Lista::ordenar() {
+  // Si la lista está vacía o solo tiene un elemento, ya está ordenada.
+  if (vacia() || longitud <= 1) {
+    return;
+  }
+
+  // 'ptrOrdenado' será el puntero a la nueva lista que construiremos ya ordenada.
+  direccion ptrOrdenado = NULO;
+  // 'actual' recorrerá cada nodo de la lista original (desordenada).
+  direccion actual = PtrElementos;
+
+  while (actual != NULO) {
+    // 1. Tomamos el siguiente nodo de la lista original para ordenarlo.
+    direccion nodoAInsertar = actual;
+    actual = siguiente(actual); // Avanzamos el puntero de la lista original.
+
+    // 2. Buscamos dónde insertar 'nodoAInsertar' en nuestra nueva lista ordenada.
+
+    // CASO A: La lista ordenada está vacía o el nodo a insertar es menor que su cabeza.
+    if (ptrOrdenado == NULO || recupera(nodoAInsertar) < recupera(ptrOrdenado)) {
+      // El nuevo nodo apunta a la antigua cabeza de la lista ordenada.
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, ptrOrdenado);
+      // La cabeza de la lista ordenada ahora es el nuevo nodo.
+      ptrOrdenado = nodoAInsertar;
+    }
+    // CASO B: El nodo debe insertarse en medio o al final de la lista ordenada.
+    else {
+      // 'temp' busca en la lista ordenada la posición correcta.
+      direccion temp = ptrOrdenado;
+      // Avanzamos 'temp' mientras el 'siguiente' no sea nulo y su valor sea
+      // menor que el valor del nodo que queremos insertar.
+      while (siguiente(temp) != NULO && recupera(siguiente(temp)) < recupera(nodoAInsertar)) {
+        temp = siguiente(temp);
+      }
+
+      // Insertamos el 'nodoAInsertar' entre 'temp' y el 'siguiente de temp'.
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, siguiente(temp));
+      Cmemoria->poner_dato(temp, sigNL, nodoAInsertar);
+    }
+  }
+
+  // 3. Finalmente, actualizamos el puntero principal de la lista para que apunte
+  // a la nueva lista completamente ordenada.
+  PtrElementos = ptrOrdenado;
 }

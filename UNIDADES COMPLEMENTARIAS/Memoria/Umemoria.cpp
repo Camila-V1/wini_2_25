@@ -522,12 +522,25 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 
 	}
 void CSmemoria::MostrarMemoriaDesplazada(TColor FormColor, TCanvas *Canvas, int posX, int posY, int A, int B) {
-    if (B >= MAX || A < 0 || A > B) {
+		int auxXz = posX;
+			Canvas->Font->Size = 8;
+   	// DIBUJAMOS CABECERA
+			Pintado(posX , posY, "dir", FormColor, Canvas);
+			posX += TamanoCeldaX;
+			Pintado(posX , posY, "dato", FormColor, Canvas);
+			posX += TamanoCeldaX;
+			Pintado(posX , posY, "id", FormColor, Canvas);
+			posX += TamanoCeldaX;
+			Pintado(posX , posY, "link", FormColor, Canvas);
+			//posX = auxX;
+			 posX = auxXz;
+			posY += TamanoCeldaY;
+	if (B >= MAX || A < 0 || A > B) {
         ShowMessage("Rango inválido.");
         return;
     }
 
-    int auxX = posX;
+	int auxX = posX;
     Canvas->Font->Size = 8;
     Canvas->Pen->Color = clBlack; // Borde negro para todas las celdas
 
@@ -538,7 +551,7 @@ void CSmemoria::MostrarMemoriaDesplazada(TColor FormColor, TCanvas *Canvas, int 
         bool ocupado = !dir_libre(i);
 
         if (ocupado) {
-            // --- VISTA OCUPADA / DESPLAZADA ---
+			// --- VISTA OCUPADA / DESPLAZADA ---
             // El bloque completo (dir, dato, id) se mueve a la derecha.
 
             // Calcula la posición inicial para TODO el bloque desplazado.

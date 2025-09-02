@@ -53,5 +53,6 @@ class Lista{
 	void imprimir(TColor FormColor, TCanvas *Canvas);
 	void imprimir2(TColor FormColor, TCanvas *Canvas,int posX,int posY )   ;
 	void Pintado2(int posX, int posY, String cad, TColor color, TCanvas *Canvas);
-};
+     void ordenar();
+	};
 #endif

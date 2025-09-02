@@ -157,11 +157,11 @@
 
 	void Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
 	   TRect rect(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
-		TColor oldPenColor = Canvas->Pen->Color; // Guarda el color original del lÃ¡piz
+		TColor oldPenColor = Canvas->Pen->Color; // Guarda el color original del lápiz
 		Canvas->Brush->Color = color;
-		Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
-		///Canvas->Rectangle(rect.Left, rect.Top, rect.Right, rect.Bottom); // Dibuja un rectÃ¡ngulo
-		Canvas->Pen->Color = oldPenColor; // Restablece el color del lÃ¡piz al color original
+		Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
+		///Canvas->Rectangle(rect.Left, rect.Top, rect.Right, rect.Bottom); // Dibuja un rectángulo
+		Canvas->Pen->Color = oldPenColor; // Restablece el color del lápiz al color original
 		Canvas->TextOutW(posX+3,posY+3,cad);
 	}
 
@@ -199,12 +199,12 @@
 	if (mem[i].link!=libre) {
 
 	//Canvas->Brush->Color =clLime;
-	Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
+	Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
 	//Canvas->Rectangle(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->TextOutW(posX+3,posY+3,IntToStr(i));
 	posX+=TamanoCeldaX;
 	Canvas->Brush->Color = clGreen ;    //clLime
-	//Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
+	//Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
 	Canvas->Rectangle(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->TextOutW(posX+3,posY+3,IntToStr(mem[i].dato));
 
@@ -257,12 +257,12 @@ int posX = 180;
 	//if ( (mem[i].dato ==0 && mem[i].id == "")) {
 	if (mem[i].link!=libre) {
 	//Canvas->Brush->Color =clLime;
-	Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
+	Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
 	//Canvas->Rectangle(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->TextOutW(posX+3,posY+3,IntToStr(i));
 	posX+=TamanoCeldaX;
 	Canvas->Brush->Color = clSkyBlue;
-	Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
+	Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
 	Canvas->Rectangle(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->TextOutW(posX+3,posY+3,IntToStr(mem[i].dato));
 
@@ -317,12 +317,12 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 	if (mem[i].link!=libre) {
 
 	//Canvas->Brush->Color =clLime;
-	Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
+	Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
 	//Canvas->Rectangle(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->TextOutW(posX+3,posY+3,IntToStr(i));
 	posX+=TamanoCeldaX;
 	Canvas->Brush->Color = clGreen ;    //clLime
-	//Canvas->Pen->Color = clBlack; // Cambia el color del lÃ¡piz a negro
+	//Canvas->Pen->Color = clBlack; // Cambia el color del lápiz a negro
 	Canvas->Rectangle(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->TextOutW(posX+3,posY+3,IntToStr(mem[i].dato));
 
@@ -408,7 +408,7 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 		  Canvas->Rectangle(posX, posY, posX + TamanoCeldaX, posY + TamanoCeldaY);
           Canvas->TextOutW(posX + 3, posY + 3, IntToStr(mem[i].link));
 
-          // LÃ­nea diagonal en "link"
+          // Línea diagonal en "link"
 		  /*Canvas->Pen->Color = clBlack;
           Canvas->MoveTo(posX, posY + TamanoCeldaY);
           Canvas->LineTo(posX + TamanoCeldaX, posY);
@@ -424,7 +424,7 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 	  ShowMessage("A tiene que ser mayor que B");
 	}
   } else {
-	ShowMessage("Valor excede el tamaÃ±o de la memoria");
+	ShowMessage("Valor excede el tamaño de la memoria");
   }
 }
 
@@ -475,12 +475,12 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 					Canvas->TextOutW(posX + 3, posY + 3, mem[i].id.c_str());
 					posX += TamanoCeldaX;
 
-					// "link" con lÃ­nea horizontal a la mitad
+					// "link" con línea horizontal a la mitad
 					Canvas->Brush->Color = clYellow;
 					Canvas->Rectangle(posX, posY, posX + TamanoCeldaX, posY + TamanoCeldaY);
 					Canvas->TextOutW(posX + 3, posY + 3, IntToStr(mem[i].link));
 
-					// LÃ­nea horizontal en la mitad
+					// Línea horizontal en la mitad
 					/*int midY = posY + TamanoCeldaY / 2;
 					Canvas->Pen->Color = clBlack;
 					Canvas->MoveTo(posX, midY);
@@ -504,7 +504,7 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 			ShowMessage("A tiene que ser menor o igual a B");
 		}
 	} else {
-		ShowMessage("Valor excede el tamaÃ±o de la memoria");
+		ShowMessage("Valor excede el tamaño de la memoria");
 	}
 }
 
@@ -522,42 +522,29 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
 
 	}
 void CSmemoria::MostrarMemoriaDesplazada(TColor FormColor, TCanvas *Canvas, int posX, int posY, int A, int B) {
-		int auxXz = posX;
-			Canvas->Font->Size = 8;
-   	// DIBUJAMOS CABECERA
-			Pintado(posX , posY, "dir", FormColor, Canvas);
-			posX += TamanoCeldaX;
-			Pintado(posX , posY, "dato", FormColor, Canvas);
-			posX += TamanoCeldaX;
-			Pintado(posX , posY, "id", FormColor, Canvas);
-			posX += TamanoCeldaX;
-			Pintado(posX , posY, "link", FormColor, Canvas);
-			//posX = auxX;
-			 posX = auxXz;
-			posY += TamanoCeldaY;
-	if (B >= MAX || A < 0 || A > B) {
-        ShowMessage("Rango invÃ¡lido.");
+    if (B >= MAX || A < 0 || A > B) {
+        ShowMessage("Rango inválido.");
         return;
     }
 
-	int auxX = posX;
+    int auxX = posX;
     Canvas->Font->Size = 8;
     Canvas->Pen->Color = clBlack; // Borde negro para todas las celdas
 
     for (int i = A; i <= B; i++) {
-        posX = auxX; // Reinicia la posiciÃ³n X para cada fila
+        posX = auxX; // Reinicia la posición X para cada fila
 
-        // La lÃ³gica principal: Â¿el espacio estÃ¡ asignado o libre?
+        // La lógica principal: ¿el espacio está asignado o libre?
         bool ocupado = !dir_libre(i);
 
         if (ocupado) {
-			// --- VISTA OCUPADA / DESPLAZADA ---
+            // --- VISTA OCUPADA / DESPLAZADA ---
             // El bloque completo (dir, dato, id) se mueve a la derecha.
 
-            // Calcula la posiciÃ³n inicial para TODO el bloque desplazado.
+            // Calcula la posición inicial para TODO el bloque desplazado.
             int posX_desplazado = auxX + (TamanoCeldaX * 4) + 20;
 
-            // Dibuja 'dir' en la nueva posiciÃ³n desplazada
+            // Dibuja 'dir' en la nueva posición desplazada
             TRect dirRect(posX_desplazado, posY, posX_desplazado + TamanoCeldaX, posY + TamanoCeldaY);
             Canvas->Brush->Color = clWhite;
             Canvas->Rectangle(dirRect);

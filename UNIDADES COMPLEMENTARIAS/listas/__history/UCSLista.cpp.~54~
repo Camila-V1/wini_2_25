@@ -30,7 +30,7 @@ direccion Lista::fin(){
 	 while (x!=NULO)
 		 {
 			 ptrfin = x;
-             x=Cmemoria->obtenerDato(x,sigNL);//x=x->sig;
+			 x=Cmemoria->obtenerDato(x,sigNL);//x=x->sig;
 		 }
 	 return ptrfin;
  }
@@ -42,6 +42,7 @@ if (!vacia()) {
 }else return NULO;
 {cout<<"ERROR/Primero():ListaVacia\n";}
 }
+
 //-------------------------------------------------
 direccion Lista::siguiente(direccion d){
 if (vacia()==true) {
@@ -97,7 +98,7 @@ return longitud==0;
 //-------------------------------------------------
 int Lista::recupera(direccion d){
 if (!vacia()){
-return Cmemoria->obtenerDato(d,elementNL);
+return Cmemoria->obtenerDato(d,elementNL);    //->elemento
 }else
 {
 return NULO;}
@@ -213,12 +214,40 @@ direccion Lista::localiza(int tipoElemento) {
 		actual = siguiente(actual);
 
 
-	}
+	} if (actual==NULO) {
+		return NULO;
+	  }
 	}else{
 	return NULO;
-
 	}
 }
+void Lista::elimLista(){
+if (!vacia()) {
+   while (PtrElementos!=NULO){
+   suprime(fin());
+}
+} else{
+  cout<<"no Hay nada;";
+}
+}
+int Lista::sumaIntercalada() {
+    int suma = 0;
+    direccion actual = PtrElementos;
+    bool sumar = true;
+
+    while (actual != NULO) {
+        int elemento = Cmemoria->obtenerDato(actual, elementNL);
+
+        if (sumar) {
+            suma += elemento;
+        }
+        sumar = !sumar;
+        actual = siguiente(actual);
+    }
+
+    return suma;
+}
+
 
 //-------------------------------------------------
 
@@ -267,7 +296,7 @@ void Lista::imprimir2(TColor FormColor, TCanvas *Canvas,int posX,int posY )   {
 }
 
 void Lista::imprimir(TColor FormColor, TCanvas *Canvas){
-			int	posX = 180;
+			int	posX = 600;
 			int	posY = 500;
 			int auxX = posX;
 			int auxY = posY;    	Canvas->Font->Size =10;
@@ -302,4 +331,15 @@ void Lista::imprimir(TColor FormColor, TCanvas *Canvas){
 
 int Lista::getPtr(){
 return PtrElementos;
+}
+
+void Lista::Pintado2(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
+	//           x1  y1    x2                   y2
+	TRect rect(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
+	Canvas->Brush->Color = color;
+
+	Canvas->FillRect(rect);
+
+	Canvas->TextOutW(posX,posY+3,cad);
+
 }
