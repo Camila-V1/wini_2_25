@@ -1,8 +1,6 @@
 //---------------------------------------------------------------------------
-
 #include <vcl.h>
 #pragma hdrstop
-
 #include "PrincipalF.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -23,7 +21,6 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 {
    String d =Edit1->Text;
 M->new_espacio(AnsiString(d).c_str());
-
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button3Click(TObject *Sender)
@@ -48,9 +45,7 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
 	String p= Edit6->Text;
 	String v=  Edit7->Text;
 
-
  M->poner_dato(StrToInt(AnsiString(d).c_str()),AnsiString(p).c_str(),StrToInt(AnsiString(v).c_str()));
-
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button6Click(TObject *Sender)
@@ -60,32 +55,27 @@ void __fastcall TForm1::Button6Click(TObject *Sender)
   //l = new Vlista();
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button7Click(TObject *Sender)
 {
 	int p= StrToInt(Edit8->Text);
 //l-> inserta_primero(p);
 l-> insertar(l-> primero(),p);
-
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button8Click(TObject *Sender)
 {   	int p= StrToInt(Edit9->Text);
  //l-> inserta_ultimo(p);
 l-> insertar(l-> fin(),p);
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button9Click(TObject *Sender)
 {
 			l->imprimir2(Form1->Color,Canvas, 200,400);
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
-   l->ordenar();
+   l->ordenarPorUltimoDigito();
 }
 //---------------------------------------------------------------------------
 

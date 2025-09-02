@@ -1,7 +1,5 @@
 //---------------------------------------------------------------------------
-
 #pragma hdrstop
-
 #include "UCSLista.h"
 #include "Umemoria.h"
 //---------------------------------------------------------------------------
@@ -42,7 +40,6 @@ if (!vacia()) {
 }else return NULO;
 {cout<<"ERROR/Primero():ListaVacia\n";}
 }
-
 //-------------------------------------------------
 direccion Lista::siguiente(direccion d){
 if (vacia()==true) {
@@ -54,12 +51,10 @@ else{
 	cout<<"no hay mas dato en siguiente();";return NULO;
 	}
 	else
-
 	{
 	return Cmemoria->obtenerDato(d,sigNL);
 	}//direccion->sig;
 }
-
 }
 //-------------------------------------------------
 direccion Lista::anterior(direccion d){
@@ -91,10 +86,8 @@ else
 }
 //-------------------------------------------------
 bool Lista::vacia(){
-
 return longitud==0;
 }
-
 //-------------------------------------------------
 int Lista::recupera(direccion d){
 if (!vacia()){
@@ -173,7 +166,6 @@ if (x!=NULO) {
 	else
 	{
 		PtrElementos=x;
-
 	}
 	longitud++;
 }else
@@ -181,7 +173,6 @@ if (x!=NULO) {
 	cout<<"no existe espacio en la memoria";
 }
 }
-
 
 //-------------------------------------------------
 void Lista::suprime(direccion d){
@@ -217,13 +208,10 @@ else
 direccion Lista::localiza(int tipoElemento) {
 	direccion actual = PtrElementos;
 	if (!vacia()) {
-
 	while (actual != NULO) {
-
 		if (Cmemoria->obtenerDato(actual, elementNL) == tipoElemento)
 			return actual;
 		actual = siguiente(actual);
-
 
 	} if (actual==NULO) {
 		return NULO;
@@ -245,45 +233,34 @@ int Lista::sumaIntercalada() {
     int suma = 0;
     direccion actual = PtrElementos;
     bool sumar = true;
-
     while (actual != NULO) {
         int elemento = Cmemoria->obtenerDato(actual, elementNL);
-
         if (sumar) {
             suma += elemento;
         }
         sumar = !sumar;
         actual = siguiente(actual);
     }
-
     return suma;
 }
 
-
 //-------------------------------------------------
-
 void Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
 	//           x1  y1    x2                   y2
 	TRect rect(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->Brush->Color = color;
-
 	Canvas->FillRect(rect);
-
 	Canvas->TextOutW(posX,posY+3,cad);
-
 }
-
 void Lista::imprimir2(TColor FormColor, TCanvas *Canvas,int posX,int posY )   {
 	 // Cmemoria->ImprimirPantalla(FormColor,Canvas) ;
 			int auxX = posX;
 			int auxY = posY;    	Canvas->Font->Size =10;
 	if (vacia()==false) {
-
 			//DIBUJAMOS CABECERA
 			Pintado(posX,posY,"Lista",FormColor,Canvas);
 			posX= auxX;
 			posY+= TamanoCeldaY;
-
 			direccion x = PtrElementos;
 			Pintado(posX,posY,"< ",FormColor,Canvas);
 			posX+=40;
@@ -303,21 +280,17 @@ void Lista::imprimir2(TColor FormColor, TCanvas *Canvas,int posX,int posY )   {
 			posX= auxX;
 			posY+= TamanoCeldaY;
 	}
-
 }
-
 void Lista::imprimir(TColor FormColor, TCanvas *Canvas){
 			int	posX = 600;
 			int	posY = 500;
 			int auxX = posX;
 			int auxY = posY;    	Canvas->Font->Size =10;
 	if (vacia()==false) {
-
 			//DIBUJAMOS CABECERA
 			Pintado(posX,posY-10,"Lista",FormColor,Canvas);
 			posX= auxX;
 			posY+= TamanoCeldaY;
-
 			direccion x = PtrElementos;
 			Pintado(posX,posY,"< ",FormColor,Canvas);
 			posX+=40;
@@ -337,24 +310,17 @@ void Lista::imprimir(TColor FormColor, TCanvas *Canvas){
 			posX= auxX;
 			posY+= TamanoCeldaY;
 	}
-
 }
-
 int Lista::getPtr(){
 return PtrElementos;
 }
-
 void Lista::Pintado2(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
 	//           x1  y1    x2                   y2
 	TRect rect(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
 	Canvas->Brush->Color = color;
-
 	Canvas->FillRect(rect);
-
 	Canvas->TextOutW(posX,posY+3,cad);
-
 }
-
 void Lista::ordenar() {
   // Si la lista está vacía o solo tiene un elemento, ya está ordenada.
   if (vacia() || longitud <= 1) {
@@ -398,5 +364,43 @@ void Lista::ordenar() {
 
   // 3. Finalmente, actualizamos el puntero principal de la lista para que apunte
   // a la nueva lista completamente ordenada.
+  PtrElementos = ptrOrdenado;
+}
+
+void Lista::ordenarPorUltimoDigito() {
+  // Si la lista está vacía o solo tiene un elemento, ya está ordenada.
+  if (vacia() || longitud <= 1) {
+    return;
+  }
+
+  direccion ptrOrdenado = NULO;
+  direccion actual = PtrElementos;
+
+  while (actual != NULO) {
+    direccion nodoAInsertar = actual;
+    actual = siguiente(actual);
+
+    // Obtenemos el último dígito del nodo que vamos a insertar.
+    int ultimoDigitoAInsertar = recupera(nodoAInsertar) % 10;
+
+    // CASO A: La lista ordenada está vacía o el nuevo nodo debe ir al principio.
+    if (ptrOrdenado == NULO || ultimoDigitoAInsertar < (recupera(ptrOrdenado) % 10)) {
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, ptrOrdenado);
+      ptrOrdenado = nodoAInsertar;
+    }
+    // CASO B: El nodo debe insertarse en medio o al final de la lista ordenada.
+    else {
+      direccion temp = ptrOrdenado;
+      // Buscamos la posición correcta comparando solo el último dígito.
+      while (siguiente(temp) != NULO && (recupera(siguiente(temp)) % 10) < ultimoDigitoAInsertar) {
+        temp = siguiente(temp);
+      }
+
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, siguiente(temp));
+      Cmemoria->poner_dato(temp, sigNL, nodoAInsertar);
+    }
+  }
+
+  // Actualizamos el puntero principal para que apunte a la nueva lista ordenada.
   PtrElementos = ptrOrdenado;
 }
