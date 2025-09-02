@@ -55,6 +55,7 @@ class Lista{
 	void Pintado2(int posX, int posY, String cad, TColor color, TCanvas *Canvas);
 	 void ordenar();
 
-     void ordenarPorUltimoDigito();
+	 void ordenarPorUltimoDigito();
+      void ordenarPorUltimoDigito2();
 	};
 #endif

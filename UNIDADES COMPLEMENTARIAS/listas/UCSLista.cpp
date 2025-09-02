@@ -2,6 +2,7 @@
 #pragma hdrstop
 #include "UCSLista.h"
 #include "Umemoria.h"
+#include <cmath>
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 //-------------------------------------------------
@@ -402,5 +403,42 @@ void Lista::ordenarPorUltimoDigito() {
   }
 
   // Actualizamos el puntero principal para que apunte a la nueva lista ordenada.
+  PtrElementos = ptrOrdenado;
+}
+
+
+void Lista::ordenarPorUltimoDigito2() {
+  // Si la lista está vacía o solo tiene un elemento, ya está ordenada.
+  if (vacia() || longitud <= 1) {
+	return;
+  }
+
+  direccion ptrOrdenado = NULO;
+  direccion actual = PtrElementos;
+
+  while (actual != NULO) {
+	direccion nodoAInsertar = actual;
+	actual = siguiente(actual);
+
+	// **CAMBIO AQUÍ:** Usamos abs() para obtener el último dígito positivo.
+	int ultimoDigitoAInsertar = abs(recupera(nodoAInsertar)) % 10;
+
+	// **CAMBIO AQUÍ:** Comparamos usando el valor absoluto.
+    if (ptrOrdenado == NULO || ultimoDigitoAInsertar < (abs(recupera(ptrOrdenado)) % 10)) {
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, ptrOrdenado);
+      ptrOrdenado = nodoAInsertar;
+    }
+    else {
+      direccion temp = ptrOrdenado;
+      // **CAMBIO AQUÍ:** Comparamos usando el valor absoluto dentro del bucle.
+      while (siguiente(temp) != NULO && (abs(recupera(siguiente(temp))) % 10) < ultimoDigitoAInsertar) {
+        temp = siguiente(temp);
+	  }
+
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, siguiente(temp));
+      Cmemoria->poner_dato(temp, sigNL, nodoAInsertar);
+    }
+  }
+
   PtrElementos = ptrOrdenado;
 }
