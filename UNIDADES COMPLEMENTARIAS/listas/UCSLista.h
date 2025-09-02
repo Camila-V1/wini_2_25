@@ -56,6 +56,7 @@ class Lista{
 	 void ordenar();
 
 	 void ordenarPorUltimoDigito();
-      void ordenarPorUltimoDigito2();
+	  void ordenarPorUltimoDigito2();
+      void ordenarPorUltimoDigito3();
 	};
 #endif

@@ -442,3 +442,47 @@ void Lista::ordenarPorUltimoDigito2() {
 
   PtrElementos = ptrOrdenado;
 }
+
+void Lista::ordenarPorUltimoDigito3() {
+  if (vacia() || longitud <= 1) {
+    return;
+  }
+
+  direccion ptrOrdenado = NULO;
+  direccion actual = PtrElementos;
+
+  while (actual != NULO) {
+    direccion nodoAInsertar = actual;
+    actual = siguiente(actual);
+
+    // **LÓGICA CLAVE:** Extraer el último dígito de la parte entera.
+    float valorCompleto = recupera(nodoAInsertar);
+    int parteEntera = (int)valorCompleto; // Convierte 12.4 a 12, o -12.4 a -12
+    int ultimoDigitoAInsertar = abs(parteEntera) % 10;
+
+    // Comparar usando la nueva lógica.
+    float cabezaOrdenadaValor = recupera(ptrOrdenado);
+    int cabezaOrdenadaEntero = (int)cabezaOrdenadaValor;
+    if (ptrOrdenado == NULO || ultimoDigitoAInsertar < (abs(cabezaOrdenadaEntero) % 10)) {
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, ptrOrdenado);
+      ptrOrdenado = nodoAInsertar;
+    }
+    else {
+      direccion temp = ptrOrdenado;
+
+      while (siguiente(temp) != NULO) {
+          float siguienteValor = recupera(siguiente(temp));
+          int siguienteEntero = (int)siguienteValor;
+          if ((abs(siguienteEntero) % 10) >= ultimoDigitoAInsertar) {
+              break; // Encontramos la posición, salir del bucle
+          }
+          temp = siguiente(temp);
+      }
+
+      Cmemoria->poner_dato(nodoAInsertar, sigNL, siguiente(temp));
+      Cmemoria->poner_dato(temp, sigNL, nodoAInsertar);
+    }
+  }
+
+  PtrElementos = ptrOrdenado;
+}
